@@ -1,0 +1,20 @@
+CONF method=pcg N=16 P=1 Px=1 Py=1 nodes=1 Nc=0 tol=1e-14 maxit=100000 nrep=1 guess=rand halo=1 reduce=1 kappa=1.030869e+02
+REF refnorm=8.812841e-01 disc_err=2.611079e-04
+REP rep=0 time=1.134650e-04 setup=7.313000e-06 halo=0.000000e+00 reduce=0.000000e+00 cc_comm=0.000000e+00 cc_solve=0.000000e+00 cc_rp=0.000000e+00 halo_max=0.000000e+00 reduce_max=0.000000e+00 iters=65 gflops=2.4490
+CROSS d=1 kres=3 kerr=18
+CROSS d=2 kres=14 kerr=23
+CROSS d=3 kres=24 kerr=28
+CROSS d=4 kres=29 kerr=34
+CROSS d=5 kres=35 kerr=39
+CROSS d=6 kres=40 kerr=42
+CROSS d=7 kres=44 kerr=46
+CROSS d=8 kres=48 kerr=50
+CROSS d=9 kres=51 kerr=52
+CROSS d=10 kres=53 kerr=55
+CROSS d=11 kres=56 kerr=58
+CROSS d=12 kres=60 kerr=61
+CROSS d=13 kres=63 kerr=64
+CROSS d=14 kres=65 kerr=-1
+CROSS d=15 kres=-1 kerr=-1
+CROSS d=16 kres=-1 kerr=-1
+RESULT method=pcg N=16 n=225 P=1 Px=1 Py=1 nodes=1 Nc=0 n_per_P=225.0 iters=65 time=1.134650e-04 setup=7.313000e-06 t_iter=1.745615e-06 gflops=2.4490 halo=0.000000e+00 reduce=0.000000e+00 cc_comm=0.000000e+00 cc_solve=0.000000e+00 cc_rp=0.000000e+00 relres=7.610e-15 relerr=2.948e-14 err_exact=2.611079e-04 kappa=1.030869e+02 halo_on=1 reduce_on=1 nrep=1

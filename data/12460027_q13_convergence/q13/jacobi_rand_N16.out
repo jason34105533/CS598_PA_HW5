@@ -1,0 +1,20 @@
+CONF method=jacobi N=16 P=1 Px=1 Py=1 nodes=1 Nc=0 tol=1e-13 maxit=10000000 nrep=1 guess=rand halo=1 reduce=1 kappa=1.030869e+02
+REF refnorm=8.812841e-01 disc_err=2.611079e-04
+REP rep=0 time=1.874902e-03 setup=0.000000e+00 halo=0.000000e+00 reduce=0.000000e+00 cc_comm=0.000000e+00 cc_solve=0.000000e+00 cc_rp=0.000000e+00 halo_max=0.000000e+00 reduce_max=0.000000e+00 iters=1427 gflops=0.8568
+CROSS d=1 kres=22 kerr=105
+CROSS d=2 kres=121 kerr=223
+CROSS d=3 kres=239 kerr=343
+CROSS d=4 kres=359 kerr=461
+CROSS d=5 kres=477 kerr=579
+CROSS d=6 kres=595 kerr=699
+CROSS d=7 kres=715 kerr=817
+CROSS d=8 kres=833 kerr=935
+CROSS d=9 kres=951 kerr=1055
+CROSS d=10 kres=1071 kerr=1173
+CROSS d=11 kres=1189 kerr=1293
+CROSS d=12 kres=1307 kerr=1411
+CROSS d=13 kres=1427 kerr=-1
+CROSS d=14 kres=-1 kerr=-1
+CROSS d=15 kres=-1 kerr=-1
+CROSS d=16 kres=-1 kerr=-1
+RESULT method=jacobi N=16 n=225 P=1 Px=1 Py=1 nodes=1 Nc=0 n_per_P=225.0 iters=1427 time=1.874902e-03 setup=0.000000e+00 t_iter=1.313877e-06 gflops=0.8568 halo=0.000000e+00 reduce=0.000000e+00 cc_comm=0.000000e+00 cc_solve=0.000000e+00 cc_rp=0.000000e+00 relres=9.725e-14 relerr=7.151e-13 err_exact=2.611079e-04 kappa=1.030869e+02 halo_on=1 reduce_on=1 nrep=1
