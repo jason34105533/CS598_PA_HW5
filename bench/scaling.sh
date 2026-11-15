@@ -17,6 +17,8 @@
 #SBATCH -o results/scaling.out
 cd "$SLURM_SUBMIT_DIR"
 source env.sh
+BIN=$PWD/results/bin/poisson.$SLURM_JOB_ID   # private copy of the binary
+mkdir -p results/bin && cp ./poisson $BIN && sha256sum $BIN
 source bench/common.sh
 hostname; date -Is
 echo "native march: $(gcc -march=native -Q --help=target | awk '/^ +-march=/{print $2}')"
@@ -26,7 +28,7 @@ run() {  # nodes ranks_per_node args...
     local nn=$1 ppn=$2; shift 2
     echo "== nodes=$nn ppn=$ppn $*"
     srun --mpi=pmix -N $nn --ntasks-per-node=$ppn -n $((nn * ppn)) \
-         --cpu-bind=map_cpu:$(cpumap $ppn) ./poisson "$@" -t 0 -r 3 | grep -E 'REP|RESULT'
+         --cpu-bind=map_cpu:$(cpumap $ppn) $BIN "$@" -t 0 -r 3 | grep -E 'REP|RESULT'
 }
 
 for N in 64 128 256 512 1024 2048 4096 8192 16384; do

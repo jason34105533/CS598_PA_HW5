@@ -14,4 +14,3 @@ All jobs: `eng-instruction` partition, exclusive AE7713 nodes
 
 | Job | Name | Nodes | What | Outcome |
 |---|---|---|---|---|
-| 12459609 | correctness | ccc[0391-0392] | `test_coarse`; jacobi / pcg / pcg+coarse (Nc=10, 5) at N=50 on 15 process grids (P=1..16, uneven splits, 2-node 8+8); O(h^2) check N=16..1024 | all PASS: Jacobi bitwise identical on every grid, CG max diff 3.6e-15; error ratio 3.98-4.00 per halving of h |

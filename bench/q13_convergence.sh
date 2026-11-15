@@ -15,6 +15,8 @@
 #SBATCH -o results/q13_convergence.out
 cd "$SLURM_SUBMIT_DIR"
 source env.sh
+BIN=$PWD/results/bin/poisson.$SLURM_JOB_ID   # private copy of the binary
+mkdir -p results/bin && cp ./poisson $BIN && sha256sum $BIN
 source bench/common.sh
 hostname; date -Is
 OUT=results/q13
@@ -22,7 +24,7 @@ rm -rf $OUT; mkdir -p $OUT
 
 one() {  # tag args...   -> results/q13/<tag>.out
     local tag=$1; shift
-    srun --mpi=pmix -n 1 --exact --cpu-bind=cores ./poisson "$@" > $OUT/$tag.out 2>&1 &
+    srun --mpi=pmix -n 1 --exact --cpu-bind=cores $BIN "$@" > $OUT/$tag.out 2>&1 &
 }
 
 # Jacobi, zero and random initial guess; residual tol 1e-13 so the error

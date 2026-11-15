@@ -67,7 +67,9 @@ void jacobi_solve(const Grid *g, double *u, const Opts *o, Stats *s)
 #pragma omp simd reduction(max:dmax)
             for (int i = 1; i <= nx; ++i) {
                 double w = 0.25 * (uc[i - 1] + uc[i + 1] + us[i] + un[i]);
-                dmax = fmax(dmax, fabs(w - uc[i]));
+                /* not fmax(): without -ffast-math GCC emits a libm call */
+                double d = fabs(w - uc[i]);
+                dmax = d > dmax ? d : dmax;
                 vc[i] = w;
             }
         }

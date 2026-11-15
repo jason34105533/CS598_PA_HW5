@@ -6,3 +6,4 @@ src/*.o
 results/*_dumps/
 *.bin
 __pycache__/
+results/bin/
