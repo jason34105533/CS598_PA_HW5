@@ -1,0 +1,667 @@
+7bc952e04626136135e125778a24120a4bbb68e459c45e990ba3d7f8c9635202  /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779
+01d4fdb5f7143f2288c1c53c5615280526fcb2645e00e0f1026d91571f368ae7  /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/test_coarse.12459779
++ hostname
+ccc0391.campuscluster.illinois.edu
++ date -Is
+2026-11-15T10:10:21-06:00
+++ gcc -march=native -Q --help=target
+++ awk '/^ +-march=/{print $2}'
++ echo 'native march: znver3'
+native march: znver3
++ srun --mpi=pmix -N 1 -n 1 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/test_coarse.12459779
+N= 12 Nc= 2 m= 6  stencil [2.7037 -0.3519 -0.3241]*h^2  |Ac-J^TAJ|/|Ac|=4.38e-16  |z-z_dense|/|z|=1.04e-15
+N= 12 Nc= 3 m= 4  stencil [2.7500 -0.3750 -0.3125]*h^2  |Ac-J^TAJ|/|Ac|=0.00e+00  |z-z_dense|/|z|=9.52e-16
+N= 16 Nc= 4 m= 4  stencil [2.7500 -0.3750 -0.3125]*h^2  |Ac-J^TAJ|/|Ac|=0.00e+00  |z-z_dense|/|z|=9.88e-16
+N= 24 Nc= 6 m= 4  stencil [2.7500 -0.3750 -0.3125]*h^2  |Ac-J^TAJ|/|Ac|=0.00e+00  |z-z_dense|/|z|=2.89e-15
+N= 30 Nc= 5 m= 6  stencil [2.7037 -0.3519 -0.3241]*h^2  |Ac-J^TAJ|/|Ac|=5.61e-16  |z-z_dense|/|z|=2.34e-15
+N= 32 Nc= 8 m= 4  stencil [2.7500 -0.3750 -0.3125]*h^2  |Ac-J^TAJ|/|Ac|=0.00e+00  |z-z_dense|/|z|=3.59e-15
+PASS
++ DUMP=results/correctness_dumps
++ rm -rf results/correctness_dumps
++ mkdir -p results/correctness_dumps
++ N=50
++ GRIDS='1:1 2:1 1:2 3:1 1:3 2:2 4:1 1:4 3:2 2:3 4:2 2:4 8:1 4:4 16:1'
++ for m in "jacobi" "pcg" "pcg -c 10" "pcg -c 5"
+++ echo jacobi
+++ tr -d ' '
++ tag=jacobi
++ for gr in $GRIDS
++ Px=1
++ Py=1
++ P=1
++ '[' 1 -le 8 ']'
++ where='-N 1 -n 1'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 1 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m jacobi -N 50 -x 1 -y 1 -t 1e-10 -R -o results/correctness_dumps/u_jacobi_1x1_P1.bin
+RESULT method=jacobi N=50 n=2401 P=1 Px=1 Py=1 nodes=1 Nc=0 n_per_P=2401.0 iters=8559 time=8.693271e-02 setup=0.000000e+00 t_iter=1.015688e-05 gflops=1.1821 halo=0.000000e+00 reduce=0.000000e+00 cc_comm=0.000000e+00 cc_solve=0.000000e+00 cc_rp=0.000000e+00 relres=9.977e-11 relerr=2.364e-08 err_exact=2.688280e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=2
++ Py=1
++ P=2
++ '[' 2 -le 8 ']'
++ where='-N 1 -n 2'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 2 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m jacobi -N 50 -x 2 -y 1 -t 1e-10 -R -o results/correctness_dumps/u_jacobi_2x1_P2.bin
+RESULT method=jacobi N=50 n=2401 P=2 Px=2 Py=1 nodes=1 Nc=0 n_per_P=1200.5 iters=8559 time=8.646684e-02 setup=0.000000e+00 t_iter=1.010245e-05 gflops=1.1885 halo=1.982649e-02 reduce=1.094123e-02 cc_comm=0.000000e+00 cc_solve=0.000000e+00 cc_rp=0.000000e+00 relres=9.977e-11 relerr=2.364e-08 err_exact=2.688280e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=1
++ Py=2
++ P=2
++ '[' 2 -le 8 ']'
++ where='-N 1 -n 2'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 2 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m jacobi -N 50 -x 1 -y 2 -t 1e-10 -R -o results/correctness_dumps/u_jacobi_1x2_P2.bin
+RESULT method=jacobi N=50 n=2401 P=2 Px=1 Py=2 nodes=1 Nc=0 n_per_P=1200.5 iters=8559 time=8.691074e-02 setup=0.000000e+00 t_iter=1.015431e-05 gflops=1.1824 halo=2.054352e-02 reduce=1.090367e-02 cc_comm=0.000000e+00 cc_solve=0.000000e+00 cc_rp=0.000000e+00 relres=9.977e-11 relerr=2.364e-08 err_exact=2.688280e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=3
++ Py=1
++ P=3
++ '[' 3 -le 8 ']'
++ where='-N 1 -n 3'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 3 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m jacobi -N 50 -x 3 -y 1 -t 1e-10 -R -o results/correctness_dumps/u_jacobi_3x1_P3.bin
+RESULT method=jacobi N=50 n=2401 P=3 Px=3 Py=1 nodes=1 Nc=0 n_per_P=800.3 iters=8559 time=8.299215e-02 setup=0.000000e+00 t_iter=9.696477e-06 gflops=1.2382 halo=1.581558e-02 reduce=1.713869e-02 cc_comm=0.000000e+00 cc_solve=0.000000e+00 cc_rp=0.000000e+00 relres=9.977e-11 relerr=2.364e-08 err_exact=2.688280e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=1
++ Py=3
++ P=3
++ '[' 3 -le 8 ']'
++ where='-N 1 -n 3'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 3 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m jacobi -N 50 -x 1 -y 3 -t 1e-10 -R -o results/correctness_dumps/u_jacobi_1x3_P3.bin
+RESULT method=jacobi N=50 n=2401 P=3 Px=1 Py=3 nodes=1 Nc=0 n_per_P=800.3 iters=8559 time=8.137999e-02 setup=0.000000e+00 t_iter=9.508119e-06 gflops=1.2628 halo=1.576577e-02 reduce=1.589278e-02 cc_comm=0.000000e+00 cc_solve=0.000000e+00 cc_rp=0.000000e+00 relres=9.977e-11 relerr=2.364e-08 err_exact=2.688280e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=2
++ Py=2
++ P=4
++ '[' 4 -le 8 ']'
++ where='-N 1 -n 4'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 4 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m jacobi -N 50 -x 2 -y 2 -t 1e-10 -R -o results/correctness_dumps/u_jacobi_2x2_P4.bin
+RESULT method=jacobi N=50 n=2401 P=4 Px=2 Py=2 nodes=1 Nc=0 n_per_P=600.2 iters=8559 time=8.354675e-02 setup=0.000000e+00 t_iter=9.761275e-06 gflops=1.2300 halo=2.003430e-02 reduce=2.047706e-02 cc_comm=0.000000e+00 cc_solve=0.000000e+00 cc_rp=0.000000e+00 relres=9.977e-11 relerr=2.364e-08 err_exact=2.688280e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=4
++ Py=1
++ P=4
++ '[' 4 -le 8 ']'
++ where='-N 1 -n 4'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 4 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m jacobi -N 50 -x 4 -y 1 -t 1e-10 -R -o results/correctness_dumps/u_jacobi_4x1_P4.bin
+RESULT method=jacobi N=50 n=2401 P=4 Px=4 Py=1 nodes=1 Nc=0 n_per_P=600.2 iters=8559 time=8.070664e-02 setup=0.000000e+00 t_iter=9.429447e-06 gflops=1.2733 halo=1.969279e-02 reduce=1.944479e-02 cc_comm=0.000000e+00 cc_solve=0.000000e+00 cc_rp=0.000000e+00 relres=9.977e-11 relerr=2.364e-08 err_exact=2.688280e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=1
++ Py=4
++ P=4
++ '[' 4 -le 8 ']'
++ where='-N 1 -n 4'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 4 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m jacobi -N 50 -x 1 -y 4 -t 1e-10 -R -o results/correctness_dumps/u_jacobi_1x4_P4.bin
+RESULT method=jacobi N=50 n=2401 P=4 Px=1 Py=4 nodes=1 Nc=0 n_per_P=600.2 iters=8559 time=7.701013e-02 setup=0.000000e+00 t_iter=8.997562e-06 gflops=1.3344 halo=1.838169e-02 reduce=1.782600e-02 cc_comm=0.000000e+00 cc_solve=0.000000e+00 cc_rp=0.000000e+00 relres=9.977e-11 relerr=2.364e-08 err_exact=2.688280e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=3
++ Py=2
++ P=6
++ '[' 6 -le 8 ']'
++ where='-N 1 -n 6'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 6 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m jacobi -N 50 -x 3 -y 2 -t 1e-10 -R -o results/correctness_dumps/u_jacobi_3x2_P6.bin
+RESULT method=jacobi N=50 n=2401 P=6 Px=3 Py=2 nodes=1 Nc=0 n_per_P=400.2 iters=8559 time=1.116420e-01 setup=0.000000e+00 t_iter=1.304381e-05 gflops=0.9205 halo=2.664634e-02 reduce=3.414011e-02 cc_comm=0.000000e+00 cc_solve=0.000000e+00 cc_rp=0.000000e+00 relres=9.977e-11 relerr=2.364e-08 err_exact=2.688280e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=2
++ Py=3
++ P=6
++ '[' 6 -le 8 ']'
++ where='-N 1 -n 6'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 6 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m jacobi -N 50 -x 2 -y 3 -t 1e-10 -R -o results/correctness_dumps/u_jacobi_2x3_P6.bin
+RESULT method=jacobi N=50 n=2401 P=6 Px=2 Py=3 nodes=1 Nc=0 n_per_P=400.2 iters=8559 time=9.716973e-02 setup=0.000000e+00 t_iter=1.135293e-05 gflops=1.0576 halo=2.016693e-02 reduce=2.813964e-02 cc_comm=0.000000e+00 cc_solve=0.000000e+00 cc_rp=0.000000e+00 relres=9.977e-11 relerr=2.364e-08 err_exact=2.688280e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=4
++ Py=2
++ P=8
++ '[' 8 -le 8 ']'
++ where='-N 1 -n 8'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 8 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m jacobi -N 50 -x 4 -y 2 -t 1e-10 -R -o results/correctness_dumps/u_jacobi_4x2_P8.bin
+RESULT method=jacobi N=50 n=2401 P=8 Px=4 Py=2 nodes=1 Nc=0 n_per_P=300.1 iters=8559 time=8.796518e-02 setup=0.000000e+00 t_iter=1.027751e-05 gflops=1.1682 halo=2.177815e-02 reduce=2.670224e-02 cc_comm=0.000000e+00 cc_solve=0.000000e+00 cc_rp=0.000000e+00 relres=9.977e-11 relerr=2.364e-08 err_exact=2.688280e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=2
++ Py=4
++ P=8
++ '[' 8 -le 8 ']'
++ where='-N 1 -n 8'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 8 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m jacobi -N 50 -x 2 -y 4 -t 1e-10 -R -o results/correctness_dumps/u_jacobi_2x4_P8.bin
+RESULT method=jacobi N=50 n=2401 P=8 Px=2 Py=4 nodes=1 Nc=0 n_per_P=300.1 iters=8559 time=8.749332e-02 setup=0.000000e+00 t_iter=1.022238e-05 gflops=1.1745 halo=2.137623e-02 reduce=2.682309e-02 cc_comm=0.000000e+00 cc_solve=0.000000e+00 cc_rp=0.000000e+00 relres=9.977e-11 relerr=2.364e-08 err_exact=2.688280e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=8
++ Py=1
++ P=8
++ '[' 8 -le 8 ']'
++ where='-N 1 -n 8'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 8 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m jacobi -N 50 -x 8 -y 1 -t 1e-10 -R -o results/correctness_dumps/u_jacobi_8x1_P8.bin
+RESULT method=jacobi N=50 n=2401 P=8 Px=8 Py=1 nodes=1 Nc=0 n_per_P=300.1 iters=8559 time=9.441838e-02 setup=0.000000e+00 t_iter=1.103147e-05 gflops=1.0884 halo=2.204712e-02 reduce=2.781002e-02 cc_comm=0.000000e+00 cc_solve=0.000000e+00 cc_rp=0.000000e+00 relres=9.977e-11 relerr=2.364e-08 err_exact=2.688280e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=4
++ Py=4
++ P=16
++ '[' 16 -le 8 ']'
++ where='-N 2 -n 16 --ntasks-per-node=8'
++ grep -E RESULT
++ srun --mpi=pmix -N 2 -n 16 --ntasks-per-node=8 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m jacobi -N 50 -x 4 -y 4 -t 1e-10 -R -o results/correctness_dumps/u_jacobi_4x4_P16.bin
+RESULT method=jacobi N=50 n=2401 P=16 Px=4 Py=4 nodes=2 Nc=0 n_per_P=150.1 iters=8559 time=2.122466e-01 setup=0.000000e+00 t_iter=2.479806e-05 gflops=0.4842 halo=2.781387e-02 reduce=8.051282e-02 cc_comm=0.000000e+00 cc_solve=0.000000e+00 cc_rp=0.000000e+00 relres=9.977e-11 relerr=2.364e-08 err_exact=2.688280e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=16
++ Py=1
++ P=16
++ '[' 16 -le 8 ']'
++ where='-N 2 -n 16 --ntasks-per-node=8'
++ grep -E RESULT
++ srun --mpi=pmix -N 2 -n 16 --ntasks-per-node=8 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m jacobi -N 50 -x 16 -y 1 -t 1e-10 -R -o results/correctness_dumps/u_jacobi_16x1_P16.bin
+RESULT method=jacobi N=50 n=2401 P=16 Px=16 Py=1 nodes=2 Nc=0 n_per_P=150.1 iters=8559 time=2.256823e-01 setup=0.000000e+00 t_iter=2.636783e-05 gflops=0.4553 halo=2.418386e-02 reduce=9.120432e-02 cc_comm=0.000000e+00 cc_solve=0.000000e+00 cc_rp=0.000000e+00 relres=9.977e-11 relerr=2.364e-08 err_exact=2.688280e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for m in "jacobi" "pcg" "pcg -c 10" "pcg -c 5"
+++ echo pcg
+++ tr -d ' '
++ tag=pcg
++ for gr in $GRIDS
++ Px=1
++ Py=1
++ P=1
++ '[' 1 -le 8 ']'
++ where='-N 1 -n 1'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 1 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -N 50 -x 1 -y 1 -t 1e-10 -R -o results/correctness_dumps/u_pcg_1x1_P1.bin
+RESULT method=pcg N=50 n=2401 P=1 Px=1 Py=1 nodes=1 Nc=0 n_per_P=2401.0 iters=174 time=2.348325e-03 setup=7.679500e-05 t_iter=1.349612e-05 gflops=3.3802 halo=0.000000e+00 reduce=0.000000e+00 cc_comm=0.000000e+00 cc_solve=0.000000e+00 cc_rp=0.000000e+00 relres=8.942e-11 relerr=1.049e-10 err_exact=2.690270e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=2
++ Py=1
++ P=2
++ '[' 2 -le 8 ']'
++ where='-N 1 -n 2'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 2 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -N 50 -x 2 -y 1 -t 1e-10 -R -o results/correctness_dumps/u_pcg_2x1_P2.bin
+RESULT method=pcg N=50 n=2401 P=2 Px=2 Py=1 nodes=1 Nc=0 n_per_P=1200.5 iters=174 time=2.541324e-03 setup=3.314200e-05 t_iter=1.460531e-05 gflops=3.1235 halo=5.044240e-04 reduce=5.385675e-04 cc_comm=0.000000e+00 cc_solve=0.000000e+00 cc_rp=0.000000e+00 relres=8.942e-11 relerr=1.049e-10 err_exact=2.690270e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=1
++ Py=2
++ P=2
++ '[' 2 -le 8 ']'
++ where='-N 1 -n 2'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 2 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -N 50 -x 1 -y 2 -t 1e-10 -R -o results/correctness_dumps/u_pcg_1x2_P2.bin
+RESULT method=pcg N=50 n=2401 P=2 Px=1 Py=2 nodes=1 Nc=0 n_per_P=1200.5 iters=174 time=2.465466e-03 setup=3.971400e-05 t_iter=1.416934e-05 gflops=3.2196 halo=4.737440e-04 reduce=5.572455e-04 cc_comm=0.000000e+00 cc_solve=0.000000e+00 cc_rp=0.000000e+00 relres=8.942e-11 relerr=1.049e-10 err_exact=2.690270e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=3
++ Py=1
++ P=3
++ '[' 3 -le 8 ']'
++ where='-N 1 -n 3'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 3 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -N 50 -x 3 -y 1 -t 1e-10 -R -o results/correctness_dumps/u_pcg_3x1_P3.bin
+RESULT method=pcg N=50 n=2401 P=3 Px=3 Py=1 nodes=1 Nc=0 n_per_P=800.3 iters=174 time=2.491912e-03 setup=1.147689e-03 t_iter=1.432133e-05 gflops=3.1854 halo=4.285223e-04 reduce=1.152493e-03 cc_comm=0.000000e+00 cc_solve=0.000000e+00 cc_rp=0.000000e+00 relres=8.942e-11 relerr=1.049e-10 err_exact=2.690270e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=1
++ Py=3
++ P=3
++ '[' 3 -le 8 ']'
++ where='-N 1 -n 3'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 3 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -N 50 -x 1 -y 3 -t 1e-10 -R -o results/correctness_dumps/u_pcg_1x3_P3.bin
+RESULT method=pcg N=50 n=2401 P=3 Px=1 Py=3 nodes=1 Nc=0 n_per_P=800.3 iters=174 time=3.394647e-03 setup=1.893970e-04 t_iter=1.950947e-05 gflops=2.3383 halo=1.031196e-03 reduce=1.149819e-03 cc_comm=0.000000e+00 cc_solve=0.000000e+00 cc_rp=0.000000e+00 relres=8.942e-11 relerr=1.049e-10 err_exact=2.690270e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=2
++ Py=2
++ P=4
++ '[' 4 -le 8 ']'
++ where='-N 1 -n 4'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 4 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -N 50 -x 2 -y 2 -t 1e-10 -R -o results/correctness_dumps/u_pcg_2x2_P4.bin
+RESULT method=pcg N=50 n=2401 P=4 Px=2 Py=2 nodes=1 Nc=0 n_per_P=600.2 iters=174 time=2.404316e-03 setup=1.968700e-05 t_iter=1.381791e-05 gflops=3.3014 halo=4.660018e-04 reduce=8.644977e-04 cc_comm=0.000000e+00 cc_solve=0.000000e+00 cc_rp=0.000000e+00 relres=8.942e-11 relerr=1.049e-10 err_exact=2.690270e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=4
++ Py=1
++ P=4
++ '[' 4 -le 8 ']'
++ where='-N 1 -n 4'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 4 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -N 50 -x 4 -y 1 -t 1e-10 -R -o results/correctness_dumps/u_pcg_4x1_P4.bin
+RESULT method=pcg N=50 n=2401 P=4 Px=4 Py=1 nodes=1 Nc=0 n_per_P=600.2 iters=174 time=2.419288e-03 setup=2.074900e-05 t_iter=1.390395e-05 gflops=3.2810 halo=4.876755e-04 reduce=8.480900e-04 cc_comm=0.000000e+00 cc_solve=0.000000e+00 cc_rp=0.000000e+00 relres=8.942e-11 relerr=1.049e-10 err_exact=2.690270e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=1
++ Py=4
++ P=4
++ '[' 4 -le 8 ']'
++ where='-N 1 -n 4'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 4 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -N 50 -x 1 -y 4 -t 1e-10 -R -o results/correctness_dumps/u_pcg_1x4_P4.bin
+RESULT method=pcg N=50 n=2401 P=4 Px=1 Py=4 nodes=1 Nc=0 n_per_P=600.2 iters=174 time=2.175542e-03 setup=3.400400e-05 t_iter=1.250311e-05 gflops=3.6486 halo=4.093562e-04 reduce=7.823422e-04 cc_comm=0.000000e+00 cc_solve=0.000000e+00 cc_rp=0.000000e+00 relres=8.942e-11 relerr=1.049e-10 err_exact=2.690270e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=3
++ Py=2
++ P=6
++ '[' 6 -le 8 ']'
++ where='-N 1 -n 6'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 6 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -N 50 -x 3 -y 2 -t 1e-10 -R -o results/correctness_dumps/u_pcg_3x2_P6.bin
+RESULT method=pcg N=50 n=2401 P=6 Px=3 Py=2 nodes=1 Nc=0 n_per_P=400.2 iters=174 time=2.560555e-03 setup=2.084000e-05 t_iter=1.471583e-05 gflops=3.1000 halo=4.081412e-04 reduce=1.098343e-03 cc_comm=0.000000e+00 cc_solve=0.000000e+00 cc_rp=0.000000e+00 relres=8.942e-11 relerr=1.049e-10 err_exact=2.690270e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=2
++ Py=3
++ P=6
++ '[' 6 -le 8 ']'
++ where='-N 1 -n 6'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 6 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -N 50 -x 2 -y 3 -t 1e-10 -R -o results/correctness_dumps/u_pcg_2x3_P6.bin
+RESULT method=pcg N=50 n=2401 P=6 Px=2 Py=3 nodes=1 Nc=0 n_per_P=400.2 iters=174 time=2.525435e-03 setup=1.744300e-05 t_iter=1.451399e-05 gflops=3.1431 halo=3.793260e-04 reduce=1.094427e-03 cc_comm=0.000000e+00 cc_solve=0.000000e+00 cc_rp=0.000000e+00 relres=8.942e-11 relerr=1.049e-10 err_exact=2.690270e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=4
++ Py=2
++ P=8
++ '[' 8 -le 8 ']'
++ where='-N 1 -n 8'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 8 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -N 50 -x 4 -y 2 -t 1e-10 -R -o results/correctness_dumps/u_pcg_4x2_P8.bin
+RESULT method=pcg N=50 n=2401 P=8 Px=4 Py=2 nodes=1 Nc=0 n_per_P=300.1 iters=174 time=2.889966e-03 setup=3.195000e-05 t_iter=1.660900e-05 gflops=2.7466 halo=6.316737e-04 reduce=1.264035e-03 cc_comm=0.000000e+00 cc_solve=0.000000e+00 cc_rp=0.000000e+00 relres=8.942e-11 relerr=1.049e-10 err_exact=2.690270e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=2
++ Py=4
++ P=8
++ '[' 8 -le 8 ']'
++ where='-N 1 -n 8'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 8 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -N 50 -x 2 -y 4 -t 1e-10 -R -o results/correctness_dumps/u_pcg_2x4_P8.bin
+RESULT method=pcg N=50 n=2401 P=8 Px=2 Py=4 nodes=1 Nc=0 n_per_P=300.1 iters=174 time=2.864845e-03 setup=1.970700e-05 t_iter=1.646463e-05 gflops=2.7707 halo=6.188845e-04 reduce=1.260847e-03 cc_comm=0.000000e+00 cc_solve=0.000000e+00 cc_rp=0.000000e+00 relres=8.942e-11 relerr=1.049e-10 err_exact=2.690270e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=8
++ Py=1
++ P=8
++ '[' 8 -le 8 ']'
++ where='-N 1 -n 8'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 8 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -N 50 -x 8 -y 1 -t 1e-10 -R -o results/correctness_dumps/u_pcg_8x1_P8.bin
+RESULT method=pcg N=50 n=2401 P=8 Px=8 Py=1 nodes=1 Nc=0 n_per_P=300.1 iters=174 time=2.949638e-03 setup=1.995800e-05 t_iter=1.695194e-05 gflops=2.6911 halo=6.011511e-04 reduce=1.261137e-03 cc_comm=0.000000e+00 cc_solve=0.000000e+00 cc_rp=0.000000e+00 relres=8.942e-11 relerr=1.049e-10 err_exact=2.690270e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=4
++ Py=4
++ P=16
++ '[' 16 -le 8 ']'
++ where='-N 2 -n 16 --ntasks-per-node=8'
++ grep -E RESULT
++ srun --mpi=pmix -N 2 -n 16 --ntasks-per-node=8 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -N 50 -x 4 -y 4 -t 1e-10 -R -o results/correctness_dumps/u_pcg_4x4_P16.bin
+RESULT method=pcg N=50 n=2401 P=16 Px=4 Py=4 nodes=2 Nc=0 n_per_P=150.1 iters=174 time=8.372017e-03 setup=3.478600e-05 t_iter=4.811504e-05 gflops=0.9481 halo=1.857704e-03 reduce=4.341974e-03 cc_comm=0.000000e+00 cc_solve=0.000000e+00 cc_rp=0.000000e+00 relres=8.942e-11 relerr=1.049e-10 err_exact=2.690270e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=16
++ Py=1
++ P=16
++ '[' 16 -le 8 ']'
++ where='-N 2 -n 16 --ntasks-per-node=8'
++ grep -E RESULT
++ srun --mpi=pmix -N 2 -n 16 --ntasks-per-node=8 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -N 50 -x 16 -y 1 -t 1e-10 -R -o results/correctness_dumps/u_pcg_16x1_P16.bin
+RESULT method=pcg N=50 n=2401 P=16 Px=16 Py=1 nodes=2 Nc=0 n_per_P=150.1 iters=174 time=8.475914e-03 setup=4.204900e-05 t_iter=4.871215e-05 gflops=0.9365 halo=8.984786e-04 reduce=5.274822e-03 cc_comm=0.000000e+00 cc_solve=0.000000e+00 cc_rp=0.000000e+00 relres=8.942e-11 relerr=1.049e-10 err_exact=2.690270e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for m in "jacobi" "pcg" "pcg -c 10" "pcg -c 5"
+++ echo pcg -c 10
+++ tr -d ' '
++ tag=pcg-c10
++ for gr in $GRIDS
++ Px=1
++ Py=1
++ P=1
++ '[' 1 -le 8 ']'
++ where='-N 1 -n 1'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 1 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -c 10 -N 50 -x 1 -y 1 -t 1e-10 -R -o results/correctness_dumps/u_pcg-c10_1x1_P1.bin
+RESULT method=pcgc N=50 n=2401 P=1 Px=1 Py=1 nodes=1 Nc=10 n_per_P=2401.0 iters=52 time=1.179160e-03 setup=1.069820e-04 t_iter=2.267615e-05 gflops=3.0017 halo=0.000000e+00 reduce=0.000000e+00 cc_comm=2.023000e-06 cc_solve=8.429000e-05 cc_rp=4.640490e-04 relres=6.280e-11 relerr=3.986e-11 err_exact=2.690270e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=2
++ Py=1
++ P=2
++ '[' 2 -le 8 ']'
++ where='-N 1 -n 2'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 2 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -c 10 -N 50 -x 2 -y 1 -t 1e-10 -R -o results/correctness_dumps/u_pcg-c10_2x1_P2.bin
+RESULT method=pcgc N=50 n=2401 P=2 Px=2 Py=1 nodes=1 Nc=10 n_per_P=1200.5 iters=52 time=1.200169e-03 setup=5.362100e-05 t_iter=2.308017e-05 gflops=2.9492 halo=1.403255e-04 reduce=1.508965e-04 cc_comm=1.621980e-04 cc_solve=8.440350e-05 cc_rp=2.581825e-04 relres=6.280e-11 relerr=3.986e-11 err_exact=2.690270e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=1
++ Py=2
++ P=2
++ '[' 2 -le 8 ']'
++ where='-N 1 -n 2'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 2 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -c 10 -N 50 -x 1 -y 2 -t 1e-10 -R -o results/correctness_dumps/u_pcg-c10_1x2_P2.bin
+RESULT method=pcgc N=50 n=2401 P=2 Px=1 Py=2 nodes=1 Nc=10 n_per_P=1200.5 iters=52 time=1.155895e-03 setup=5.372200e-05 t_iter=2.222875e-05 gflops=3.0621 halo=1.352930e-04 reduce=1.483205e-04 cc_comm=1.593645e-04 cc_solve=9.433250e-05 cc_rp=2.336655e-04 relres=6.280e-11 relerr=3.986e-11 err_exact=2.690270e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=3
++ Py=1
++ P=3
++ '[' 3 -le 8 ']'
++ where='-N 1 -n 3'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 3 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -c 10 -N 50 -x 3 -y 1 -t 1e-10 -R -o results/correctness_dumps/u_pcg-c10_3x1_P3.bin
+RESULT method=pcgc N=50 n=2401 P=3 Px=3 Py=1 nodes=1 Nc=10 n_per_P=800.3 iters=52 time=1.290089e-03 setup=1.163000e-03 t_iter=2.480940e-05 gflops=2.7436 halo=1.190237e-04 reduce=5.913553e-04 cc_comm=9.294713e-04 cc_solve=8.568733e-05 cc_rp=1.970957e-04 relres=6.280e-11 relerr=3.986e-11 err_exact=2.690270e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=1
++ Py=3
++ P=3
++ '[' 3 -le 8 ']'
++ where='-N 1 -n 3'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 3 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -c 10 -N 50 -x 1 -y 3 -t 1e-10 -R -o results/correctness_dumps/u_pcg-c10_1x3_P3.bin
+RESULT method=pcgc N=50 n=2401 P=3 Px=1 Py=3 nodes=1 Nc=10 n_per_P=800.3 iters=52 time=1.220448e-03 setup=1.170032e-03 t_iter=2.347015e-05 gflops=2.9002 halo=1.130777e-04 reduce=2.643483e-04 cc_comm=6.411023e-04 cc_solve=8.728567e-05 cc_rp=1.517690e-04 relres=6.280e-11 relerr=3.986e-11 err_exact=2.690270e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=2
++ Py=2
++ P=4
++ '[' 4 -le 8 ']'
++ where='-N 1 -n 4'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 4 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -c 10 -N 50 -x 2 -y 2 -t 1e-10 -R -o results/correctness_dumps/u_pcg-c10_2x2_P4.bin
+RESULT method=pcgc N=50 n=2401 P=4 Px=2 Py=2 nodes=1 Nc=10 n_per_P=600.2 iters=52 time=1.098268e-03 setup=5.273000e-05 t_iter=2.112054e-05 gflops=3.2228 halo=1.210145e-04 reduce=2.320780e-04 cc_comm=2.561650e-04 cc_solve=8.507775e-05 cc_rp=1.248698e-04 relres=6.280e-11 relerr=3.986e-11 err_exact=2.690270e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=4
++ Py=1
++ P=4
++ '[' 4 -le 8 ']'
++ where='-N 1 -n 4'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 4 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -c 10 -N 50 -x 4 -y 1 -t 1e-10 -R -o results/correctness_dumps/u_pcg-c10_4x1_P4.bin
+RESULT method=pcgc N=50 n=2401 P=4 Px=4 Py=1 nodes=1 Nc=10 n_per_P=600.2 iters=52 time=1.190561e-03 setup=1.084801e-03 t_iter=2.289540e-05 gflops=2.9730 halo=1.495717e-04 reduce=7.707517e-04 cc_comm=7.638900e-04 cc_solve=8.456325e-05 cc_rp=1.640260e-04 relres=6.280e-11 relerr=3.986e-11 err_exact=2.690270e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=1
++ Py=4
++ P=4
++ '[' 4 -le 8 ']'
++ where='-N 1 -n 4'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 4 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -c 10 -N 50 -x 1 -y 4 -t 1e-10 -R -o results/correctness_dumps/u_pcg-c10_1x4_P4.bin
+RESULT method=pcgc N=50 n=2401 P=4 Px=1 Py=4 nodes=1 Nc=10 n_per_P=600.2 iters=52 time=1.087417e-03 setup=9.741230e-04 t_iter=2.091187e-05 gflops=3.2549 halo=1.394488e-04 reduce=6.880305e-04 cc_comm=7.023242e-04 cc_solve=8.587600e-05 cc_rp=1.198973e-04 relres=6.280e-11 relerr=3.986e-11 err_exact=2.690270e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=3
++ Py=2
++ P=6
++ '[' 6 -le 8 ']'
++ where='-N 1 -n 6'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 6 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -c 10 -N 50 -x 3 -y 2 -t 1e-10 -R -o results/correctness_dumps/u_pcg-c10_3x2_P6.bin
+RESULT method=pcgc N=50 n=2401 P=6 Px=3 Py=2 nodes=1 Nc=10 n_per_P=400.2 iters=52 time=1.692770e-03 setup=6.171700e-05 t_iter=3.255327e-05 gflops=2.0909 halo=1.592193e-04 reduce=4.819367e-04 cc_comm=5.188527e-04 cc_solve=8.708667e-05 cc_rp=1.086162e-04 relres=6.280e-11 relerr=3.986e-11 err_exact=2.690270e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=2
++ Py=3
++ P=6
++ '[' 6 -le 8 ']'
++ where='-N 1 -n 6'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 6 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -c 10 -N 50 -x 2 -y 3 -t 1e-10 -R -o results/correctness_dumps/u_pcg-c10_2x3_P6.bin
+RESULT method=pcgc N=50 n=2401 P=6 Px=2 Py=3 nodes=1 Nc=10 n_per_P=400.2 iters=52 time=1.338670e-03 setup=1.015782e-03 t_iter=2.574365e-05 gflops=2.6440 halo=1.264077e-04 reduce=1.004908e-03 cc_comm=6.918378e-04 cc_solve=8.639683e-05 cc_rp=8.977550e-05 relres=6.280e-11 relerr=3.986e-11 err_exact=2.690270e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=4
++ Py=2
++ P=8
++ '[' 8 -le 8 ']'
++ where='-N 1 -n 8'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 8 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -c 10 -N 50 -x 4 -y 2 -t 1e-10 -R -o results/correctness_dumps/u_pcg-c10_4x2_P8.bin
+RESULT method=pcgc N=50 n=2401 P=8 Px=4 Py=2 nodes=1 Nc=10 n_per_P=300.1 iters=52 time=1.510384e-03 setup=5.299000e-05 t_iter=2.904585e-05 gflops=2.3434 halo=1.937505e-04 reduce=4.226951e-04 cc_comm=4.344959e-04 cc_solve=8.460763e-05 cc_rp=8.542087e-05 relres=6.280e-11 relerr=3.986e-11 err_exact=2.690270e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=2
++ Py=4
++ P=8
++ '[' 8 -le 8 ']'
++ where='-N 1 -n 8'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 8 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -c 10 -N 50 -x 2 -y 4 -t 1e-10 -R -o results/correctness_dumps/u_pcg-c10_2x4_P8.bin
+RESULT method=pcgc N=50 n=2401 P=8 Px=2 Py=4 nodes=1 Nc=10 n_per_P=300.1 iters=52 time=1.472563e-03 setup=6.384000e-05 t_iter=2.831852e-05 gflops=2.4036 halo=1.873076e-04 reduce=4.020083e-04 cc_comm=4.602143e-04 cc_solve=8.500237e-05 cc_rp=6.935212e-05 relres=6.280e-11 relerr=3.986e-11 err_exact=2.690270e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=8
++ Py=1
++ P=8
++ '[' 8 -le 8 ']'
++ where='-N 1 -n 8'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 8 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -c 10 -N 50 -x 8 -y 1 -t 1e-10 -R -o results/correctness_dumps/u_pcg-c10_8x1_P8.bin
+RESULT method=pcgc N=50 n=2401 P=8 Px=8 Py=1 nodes=1 Nc=10 n_per_P=300.1 iters=52 time=1.478415e-03 setup=5.931200e-05 t_iter=2.843106e-05 gflops=2.3941 halo=1.713520e-04 reduce=4.047049e-04 cc_comm=4.037369e-04 cc_solve=8.506800e-05 cc_rp=1.310710e-04 relres=6.280e-11 relerr=3.986e-11 err_exact=2.690270e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=4
++ Py=4
++ P=16
++ '[' 16 -le 8 ']'
++ where='-N 2 -n 16 --ntasks-per-node=8'
++ grep -E RESULT
++ srun --mpi=pmix -N 2 -n 16 --ntasks-per-node=8 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -c 10 -N 50 -x 4 -y 4 -t 1e-10 -R -o results/correctness_dumps/u_pcg-c10_4x4_P16.bin
+RESULT method=pcgc N=50 n=2401 P=16 Px=4 Py=4 nodes=2 Nc=10 n_per_P=150.1 iters=52 time=5.323259e-03 setup=9.831500e-05 t_iter=1.023704e-04 gflops=0.6649 halo=1.464040e-03 reduce=2.104165e-03 cc_comm=9.904251e-04 cc_solve=8.485413e-05 cc_rp=4.617606e-05 relres=6.280e-11 relerr=3.986e-11 err_exact=2.690270e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=16
++ Py=1
++ P=16
++ '[' 16 -le 8 ']'
++ where='-N 2 -n 16 --ntasks-per-node=8'
++ grep -E RESULT
++ srun --mpi=pmix -N 2 -n 16 --ntasks-per-node=8 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -c 10 -N 50 -x 16 -y 1 -t 1e-10 -R -o results/correctness_dumps/u_pcg-c10_16x1_P16.bin
+RESULT method=pcgc N=50 n=2401 P=16 Px=16 Py=1 nodes=2 Nc=10 n_per_P=150.1 iters=52 time=5.119396e-03 setup=9.527000e-05 t_iter=9.844992e-05 gflops=0.6914 halo=4.753665e-04 reduce=2.723072e-03 cc_comm=1.064007e-03 cc_solve=8.721075e-05 cc_rp=9.386144e-05 relres=6.280e-11 relerr=3.986e-11 err_exact=2.690270e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for m in "jacobi" "pcg" "pcg -c 10" "pcg -c 5"
+++ echo pcg -c 5
+++ tr -d ' '
++ tag=pcg-c5
++ for gr in $GRIDS
++ Px=1
++ Py=1
++ P=1
++ '[' 1 -le 8 ']'
++ where='-N 1 -n 1'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 1 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -c 5 -N 50 -x 1 -y 1 -t 1e-10 -R -o results/correctness_dumps/u_pcg-c5_1x1_P1.bin
+RESULT method=pcgc N=50 n=2401 P=1 Px=1 Py=1 nodes=1 Nc=5 n_per_P=2401.0 iters=96 time=1.806039e-03 setup=1.113100e-04 t_iter=1.881291e-05 gflops=3.4629 halo=0.000000e+00 reduce=0.000000e+00 cc_comm=3.598000e-06 cc_solve=3.212000e-05 cc_rp=6.137360e-04 relres=7.774e-11 relerr=6.976e-11 err_exact=2.690270e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=2
++ Py=1
++ P=2
++ '[' 2 -le 8 ']'
++ where='-N 1 -n 2'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 2 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -c 5 -N 50 -x 2 -y 1 -t 1e-10 -R -o results/correctness_dumps/u_pcg-c5_2x1_P2.bin
+RESULT method=pcgc N=50 n=2401 P=2 Px=2 Py=1 nodes=1 Nc=5 n_per_P=1200.5 iters=96 time=3.257886e-03 setup=6.164700e-05 t_iter=3.393631e-05 gflops=1.9197 halo=2.565465e-04 reduce=2.698915e-04 cc_comm=1.618112e-03 cc_solve=3.478800e-05 cc_rp=3.535645e-04 relres=7.774e-11 relerr=6.976e-11 err_exact=2.690270e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=1
++ Py=2
++ P=2
++ '[' 2 -le 8 ']'
++ where='-N 1 -n 2'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 2 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -c 5 -N 50 -x 1 -y 2 -t 1e-10 -R -o results/correctness_dumps/u_pcg-c5_1x2_P2.bin
+RESULT method=pcgc N=50 n=2401 P=2 Px=1 Py=2 nodes=1 Nc=5 n_per_P=1200.5 iters=96 time=1.939130e-03 setup=5.955200e-05 t_iter=2.019927e-05 gflops=3.2252 halo=2.620605e-04 reduce=2.843290e-04 cc_comm=2.390730e-04 cc_solve=3.290200e-05 cc_rp=3.320540e-04 relres=7.774e-11 relerr=6.976e-11 err_exact=2.690270e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=3
++ Py=1
++ P=3
++ '[' 3 -le 8 ']'
++ where='-N 1 -n 3'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 3 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -c 5 -N 50 -x 3 -y 1 -t 1e-10 -R -o results/correctness_dumps/u_pcg-c5_3x1_P3.bin
+RESULT method=pcgc N=50 n=2401 P=3 Px=3 Py=1 nodes=1 Nc=5 n_per_P=800.3 iters=96 time=1.987286e-03 setup=2.284220e-04 t_iter=2.070090e-05 gflops=3.1471 halo=1.945553e-04 reduce=4.549617e-04 cc_comm=4.253377e-04 cc_solve=3.692267e-05 cc_rp=2.946317e-04 relres=7.774e-11 relerr=6.976e-11 err_exact=2.690270e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=1
++ Py=3
++ P=3
++ '[' 3 -le 8 ']'
++ where='-N 1 -n 3'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 3 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -c 5 -N 50 -x 1 -y 3 -t 1e-10 -R -o results/correctness_dumps/u_pcg-c5_1x3_P3.bin
+RESULT method=pcgc N=50 n=2401 P=3 Px=1 Py=3 nodes=1 Nc=5 n_per_P=800.3 iters=96 time=1.926476e-03 setup=2.202250e-04 t_iter=2.006746e-05 gflops=3.2464 halo=1.990160e-04 reduce=4.662960e-04 cc_comm=4.141287e-04 cc_solve=3.801900e-05 cc_rp=2.119640e-04 relres=7.774e-11 relerr=6.976e-11 err_exact=2.690270e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=2
++ Py=2
++ P=4
++ '[' 4 -le 8 ']'
++ where='-N 1 -n 4'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 4 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -c 5 -N 50 -x 2 -y 2 -t 1e-10 -R -o results/correctness_dumps/u_pcg-c5_2x2_P4.bin
+RESULT method=pcgc N=50 n=2401 P=4 Px=2 Py=2 nodes=1 Nc=5 n_per_P=600.2 iters=96 time=2.611605e-03 setup=5.336100e-05 t_iter=2.720422e-05 gflops=2.3947 halo=2.021758e-04 reduce=8.604353e-04 cc_comm=8.061992e-04 cc_solve=3.244325e-05 cc_rp=1.813395e-04 relres=7.774e-11 relerr=6.976e-11 err_exact=2.690270e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=4
++ Py=1
++ P=4
++ '[' 4 -le 8 ']'
++ where='-N 1 -n 4'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 4 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -c 5 -N 50 -x 4 -y 1 -t 1e-10 -R -o results/correctness_dumps/u_pcg-c5_4x1_P4.bin
+RESULT method=pcgc N=50 n=2401 P=4 Px=4 Py=1 nodes=1 Nc=5 n_per_P=600.2 iters=96 time=1.789079e-03 setup=9.973470e-04 t_iter=1.863624e-05 gflops=3.4957 halo=2.185390e-04 reduce=8.818193e-04 cc_comm=7.970498e-04 cc_solve=3.232150e-05 cc_rp=2.549610e-04 relres=7.774e-11 relerr=6.976e-11 err_exact=2.690270e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=1
++ Py=4
++ P=4
++ '[' 4 -le 8 ']'
++ where='-N 1 -n 4'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 4 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -c 5 -N 50 -x 1 -y 4 -t 1e-10 -R -o results/correctness_dumps/u_pcg-c5_1x4_P4.bin
+RESULT method=pcgc N=50 n=2401 P=4 Px=1 Py=4 nodes=1 Nc=5 n_per_P=600.2 iters=96 time=1.740178e-03 setup=6.281900e-05 t_iter=1.812685e-05 gflops=3.5939 halo=2.383988e-04 reduce=4.318240e-04 cc_comm=3.662300e-04 cc_solve=3.290775e-05 cc_rp=1.610387e-04 relres=7.774e-11 relerr=6.976e-11 err_exact=2.690270e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=3
++ Py=2
++ P=6
++ '[' 6 -le 8 ']'
++ where='-N 1 -n 6'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 6 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -c 5 -N 50 -x 3 -y 2 -t 1e-10 -R -o results/correctness_dumps/u_pcg-c5_3x2_P6.bin
+RESULT method=pcgc N=50 n=2401 P=6 Px=3 Py=2 nodes=1 Nc=5 n_per_P=400.2 iters=96 time=2.138685e-03 setup=6.311900e-05 t_iter=2.227797e-05 gflops=2.9243 halo=2.143698e-04 reduce=6.530082e-04 cc_comm=5.311538e-04 cc_solve=3.386500e-05 cc_rp=1.508802e-04 relres=7.774e-11 relerr=6.976e-11 err_exact=2.690270e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=2
++ Py=3
++ P=6
++ '[' 6 -le 8 ']'
++ where='-N 1 -n 6'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 6 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -c 5 -N 50 -x 2 -y 3 -t 1e-10 -R -o results/correctness_dumps/u_pcg-c5_2x3_P6.bin
+RESULT method=pcgc N=50 n=2401 P=6 Px=2 Py=3 nodes=1 Nc=5 n_per_P=400.2 iters=96 time=2.449999e-03 setup=6.696700e-05 t_iter=2.552082e-05 gflops=2.5527 halo=2.591478e-04 reduce=7.452502e-04 cc_comm=6.812608e-04 cc_solve=3.653767e-05 cc_rp=1.263492e-04 relres=7.774e-11 relerr=6.976e-11 err_exact=2.690270e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=4
++ Py=2
++ P=8
++ '[' 8 -le 8 ']'
++ where='-N 1 -n 8'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 8 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -c 5 -N 50 -x 4 -y 2 -t 1e-10 -R -o results/correctness_dumps/u_pcg-c5_4x2_P8.bin
+RESULT method=pcgc N=50 n=2401 P=8 Px=4 Py=2 nodes=1 Nc=5 n_per_P=300.1 iters=96 time=2.820709e-03 setup=6.449200e-05 t_iter=2.938239e-05 gflops=2.2172 halo=4.141776e-04 reduce=8.067151e-04 cc_comm=8.387541e-04 cc_solve=3.264750e-05 cc_rp=1.366246e-04 relres=7.774e-11 relerr=6.976e-11 err_exact=2.690270e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=2
++ Py=4
++ P=8
++ '[' 8 -le 8 ']'
++ where='-N 1 -n 8'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 8 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -c 5 -N 50 -x 2 -y 4 -t 1e-10 -R -o results/correctness_dumps/u_pcg-c5_2x4_P8.bin
+RESULT method=pcgc N=50 n=2401 P=8 Px=2 Py=4 nodes=1 Nc=5 n_per_P=300.1 iters=96 time=2.382562e-03 setup=6.818900e-05 t_iter=2.481835e-05 gflops=2.6250 halo=3.068749e-04 reduce=7.422010e-04 cc_comm=6.939549e-04 cc_solve=3.259875e-05 cc_rp=9.653912e-05 relres=7.774e-11 relerr=6.976e-11 err_exact=2.690270e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=8
++ Py=1
++ P=8
++ '[' 8 -le 8 ']'
++ where='-N 1 -n 8'
++ grep -E RESULT
++ srun --mpi=pmix -N 1 -n 8 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -c 5 -N 50 -x 8 -y 1 -t 1e-10 -R -o results/correctness_dumps/u_pcg-c5_8x1_P8.bin
+RESULT method=pcgc N=50 n=2401 P=8 Px=8 Py=1 nodes=1 Nc=5 n_per_P=300.1 iters=96 time=2.109210e-03 setup=5.620600e-05 t_iter=2.197094e-05 gflops=2.9651 halo=2.488908e-04 reduce=6.020351e-04 cc_comm=5.287186e-04 cc_solve=3.233400e-05 cc_rp=1.970416e-04 relres=7.774e-11 relerr=6.976e-11 err_exact=2.690270e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=4
++ Py=4
++ P=16
++ '[' 16 -le 8 ']'
++ where='-N 2 -n 16 --ntasks-per-node=8'
++ grep -E RESULT
++ srun --mpi=pmix -N 2 -n 16 --ntasks-per-node=8 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -c 5 -N 50 -x 4 -y 4 -t 1e-10 -R -o results/correctness_dumps/u_pcg-c5_4x4_P16.bin
+RESULT method=pcgc N=50 n=2401 P=16 Px=4 Py=4 nodes=2 Nc=5 n_per_P=150.1 iters=96 time=7.287157e-03 setup=1.039060e-04 t_iter=7.590789e-05 gflops=0.8582 halo=1.582136e-03 reduce=2.834553e-03 cc_comm=1.592958e-03 cc_solve=3.357856e-05 cc_rp=7.144769e-05 relres=7.774e-11 relerr=6.976e-11 err_exact=2.690270e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ for gr in $GRIDS
++ Px=16
++ Py=1
++ P=16
++ '[' 16 -le 8 ']'
++ where='-N 2 -n 16 --ntasks-per-node=8'
++ grep -E RESULT
++ srun --mpi=pmix -N 2 -n 16 --ntasks-per-node=8 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -c 5 -N 50 -x 16 -y 1 -t 1e-10 -R -o results/correctness_dumps/u_pcg-c5_16x1_P16.bin
+RESULT method=pcgc N=50 n=2401 P=16 Px=16 Py=1 nodes=2 Nc=5 n_per_P=150.1 iters=96 time=7.360077e-03 setup=1.056500e-04 t_iter=7.666747e-05 gflops=0.8497 halo=6.110397e-04 reduce=3.768503e-03 cc_comm=1.569458e-03 cc_solve=3.369131e-05 cc_rp=1.622387e-04 relres=7.774e-11 relerr=6.976e-11 err_exact=2.690270e-05 kappa=1.012545e+03 halo_on=1 reduce_on=1 nrep=1
++ python3 tests/compare.py results/correctness_dumps
+COMPARE tag=jacobi grid=16x1 P=16 maxdiff=0.000e+00 ok
+COMPARE tag=jacobi grid=1x2 P=2 maxdiff=0.000e+00 ok
+COMPARE tag=jacobi grid=1x3 P=3 maxdiff=0.000e+00 ok
+COMPARE tag=jacobi grid=1x4 P=4 maxdiff=0.000e+00 ok
+COMPARE tag=jacobi grid=2x1 P=2 maxdiff=0.000e+00 ok
+COMPARE tag=jacobi grid=2x2 P=4 maxdiff=0.000e+00 ok
+COMPARE tag=jacobi grid=2x3 P=6 maxdiff=0.000e+00 ok
+COMPARE tag=jacobi grid=2x4 P=8 maxdiff=0.000e+00 ok
+COMPARE tag=jacobi grid=3x1 P=3 maxdiff=0.000e+00 ok
+COMPARE tag=jacobi grid=3x2 P=6 maxdiff=0.000e+00 ok
+COMPARE tag=jacobi grid=4x1 P=4 maxdiff=0.000e+00 ok
+COMPARE tag=jacobi grid=4x2 P=8 maxdiff=0.000e+00 ok
+COMPARE tag=jacobi grid=4x4 P=16 maxdiff=0.000e+00 ok
+COMPARE tag=jacobi grid=8x1 P=8 maxdiff=0.000e+00 ok
+COMPARE tag=pcg-c10 grid=16x1 P=16 maxdiff=2.998e-15 ok
+COMPARE tag=pcg-c10 grid=1x2 P=2 maxdiff=8.327e-16 ok
+COMPARE tag=pcg-c10 grid=1x3 P=3 maxdiff=9.992e-16 ok
+COMPARE tag=pcg-c10 grid=1x4 P=4 maxdiff=1.166e-15 ok
+COMPARE tag=pcg-c10 grid=2x1 P=2 maxdiff=8.882e-16 ok
+COMPARE tag=pcg-c10 grid=2x2 P=4 maxdiff=1.110e-15 ok
+COMPARE tag=pcg-c10 grid=2x3 P=6 maxdiff=6.661e-16 ok
+COMPARE tag=pcg-c10 grid=2x4 P=8 maxdiff=1.110e-15 ok
+COMPARE tag=pcg-c10 grid=3x1 P=3 maxdiff=2.331e-15 ok
+COMPARE tag=pcg-c10 grid=3x2 P=6 maxdiff=2.554e-15 ok
+COMPARE tag=pcg-c10 grid=4x1 P=4 maxdiff=2.665e-15 ok
+COMPARE tag=pcg-c10 grid=4x2 P=8 maxdiff=1.443e-15 ok
+COMPARE tag=pcg-c10 grid=4x4 P=16 maxdiff=2.109e-15 ok
+COMPARE tag=pcg-c10 grid=8x1 P=8 maxdiff=1.221e-15 ok
+COMPARE tag=pcg-c5 grid=16x1 P=16 maxdiff=2.331e-15 ok
+COMPARE tag=pcg-c5 grid=1x2 P=2 maxdiff=1.277e-15 ok
+COMPARE tag=pcg-c5 grid=1x3 P=3 maxdiff=1.277e-15 ok
+COMPARE tag=pcg-c5 grid=1x4 P=4 maxdiff=1.443e-15 ok
+COMPARE tag=pcg-c5 grid=2x1 P=2 maxdiff=1.221e-15 ok
+COMPARE tag=pcg-c5 grid=2x2 P=4 maxdiff=1.110e-15 ok
+COMPARE tag=pcg-c5 grid=2x3 P=6 maxdiff=1.110e-15 ok
+COMPARE tag=pcg-c5 grid=2x4 P=8 maxdiff=1.665e-15 ok
+COMPARE tag=pcg-c5 grid=3x1 P=3 maxdiff=2.331e-15 ok
+COMPARE tag=pcg-c5 grid=3x2 P=6 maxdiff=2.665e-15 ok
+COMPARE tag=pcg-c5 grid=4x1 P=4 maxdiff=2.442e-15 ok
+COMPARE tag=pcg-c5 grid=4x2 P=8 maxdiff=2.554e-15 ok
+COMPARE tag=pcg-c5 grid=4x4 P=16 maxdiff=3.553e-15 ok
+COMPARE tag=pcg-c5 grid=8x1 P=8 maxdiff=1.776e-15 ok
+COMPARE tag=pcg grid=16x1 P=16 maxdiff=1.110e-15 ok
+COMPARE tag=pcg grid=1x2 P=2 maxdiff=1.110e-15 ok
+COMPARE tag=pcg grid=1x3 P=3 maxdiff=1.332e-15 ok
+COMPARE tag=pcg grid=1x4 P=4 maxdiff=9.992e-16 ok
+COMPARE tag=pcg grid=2x1 P=2 maxdiff=1.110e-15 ok
+COMPARE tag=pcg grid=2x2 P=4 maxdiff=9.992e-16 ok
+COMPARE tag=pcg grid=2x3 P=6 maxdiff=1.110e-15 ok
+COMPARE tag=pcg grid=2x4 P=8 maxdiff=8.882e-16 ok
+COMPARE tag=pcg grid=3x1 P=3 maxdiff=1.221e-15 ok
+COMPARE tag=pcg grid=3x2 P=6 maxdiff=1.110e-15 ok
+COMPARE tag=pcg grid=4x1 P=4 maxdiff=1.221e-15 ok
+COMPARE tag=pcg grid=4x2 P=8 maxdiff=9.992e-16 ok
+COMPARE tag=pcg grid=4x4 P=16 maxdiff=1.110e-15 ok
+COMPARE tag=pcg grid=8x1 P=8 maxdiff=9.992e-16 ok
+COMPARE PASS
++ for N in 16 32 64 128 256 512 1024
++ grep RESULT
++ srun --mpi=pmix -N 1 -n 1 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -N 16 -t 1e-13
+RESULT method=pcg N=16 n=225 P=1 Px=1 Py=1 nodes=1 Nc=0 n_per_P=225.0 iters=63 time=5.188900e-05 setup=1.224300e-05 t_iter=8.236349e-07 gflops=5.1904 halo=0.000000e+00 reduce=0.000000e+00 cc_comm=0.000000e+00 cc_solve=0.000000e+00 cc_rp=0.000000e+00 relres=6.044e-14 relerr=-1.000e+00 err_exact=2.611079e-04 kappa=1.030869e+02 halo_on=1 reduce_on=1 nrep=1
++ for N in 16 32 64 128 256 512 1024
++ grep RESULT
++ srun --mpi=pmix -N 1 -n 1 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -N 32 -t 1e-13
+RESULT method=pcg N=32 n=961 P=1 Px=1 Py=1 nodes=1 Nc=0 n_per_P=961.0 iters=128 time=2.540890e-04 setup=2.079900e-05 t_iter=1.985070e-06 gflops=9.1982 halo=0.000000e+00 reduce=0.000000e+00 cc_comm=0.000000e+00 cc_solve=0.000000e+00 cc_rp=0.000000e+00 relres=9.192e-14 relerr=-1.000e+00 err_exact=6.557983e-05 kappa=4.143451e+02 halo_on=1 reduce_on=1 nrep=1
++ for N in 16 32 64 128 256 512 1024
++ grep RESULT
++ srun --mpi=pmix -N 1 -n 1 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -N 64 -t 1e-13
+RESULT method=pcg N=64 n=3969 P=1 Px=1 Py=1 nodes=1 Nc=0 n_per_P=3969.0 iters=256 time=1.622025e-03 setup=1.152980e-04 t_iter=6.336035e-06 gflops=11.9019 halo=0.000000e+00 reduce=0.000000e+00 cc_comm=0.000000e+00 cc_solve=0.000000e+00 cc_rp=0.000000e+00 relres=8.668e-14 relerr=-1.000e+00 err_exact=1.642080e-05 kappa=1.659380e+03 halo_on=1 reduce_on=1 nrep=1
++ for N in 16 32 64 128 256 512 1024
++ grep RESULT
++ srun --mpi=pmix -N 1 -n 1 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -N 128 -t 1e-13
+RESULT method=pcg N=128 n=16129 P=1 Px=1 Py=1 nodes=1 Nc=0 n_per_P=16129.0 iters=508 time=1.194514e-02 setup=5.525010e-04 t_iter=2.351405e-05 gflops=13.0327 halo=0.000000e+00 reduce=0.000000e+00 cc_comm=0.000000e+00 cc_solve=0.000000e+00 cc_rp=0.000000e+00 relres=9.363e-14 relerr=-1.000e+00 err_exact=4.106767e-06 kappa=6.639518e+03 halo_on=1 reduce_on=1 nrep=1
++ for N in 16 32 64 128 256 512 1024
++ grep RESULT
++ srun --mpi=pmix -N 1 -n 1 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -N 256 -t 1e-13
+RESULT method=pcg N=256 n=65025 P=1 Px=1 Py=1 nodes=1 Nc=0 n_per_P=65025.0 iters=1007 time=1.019729e-01 setup=2.051597e-03 t_iter=1.012641e-04 gflops=12.2005 halo=0.000000e+00 reduce=0.000000e+00 cc_comm=0.000000e+00 cc_solve=0.000000e+00 cc_rp=0.000000e+00 relres=9.646e-14 relerr=-1.000e+00 err_exact=1.026733e-06 kappa=2.656007e+04 halo_on=1 reduce_on=1 nrep=1
++ for N in 16 32 64 128 256 512 1024
++ grep RESULT
++ srun --mpi=pmix -N 1 -n 1 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -N 512 -t 1e-13
+RESULT method=pcg N=512 n=261121 P=1 Px=1 Py=1 nodes=1 Nc=0 n_per_P=261121.0 iters=1993 time=8.148562e-01 setup=8.327054e-03 t_iter=4.088591e-04 gflops=12.1345 halo=0.000000e+00 reduce=0.000000e+00 cc_comm=0.000000e+00 cc_solve=0.000000e+00 cc_rp=0.000000e+00 relres=9.905e-14 relerr=-1.000e+00 err_exact=2.566883e-07 kappa=1.062423e+05 halo_on=1 reduce_on=1 nrep=1
++ for N in 16 32 64 128 256 512 1024
++ grep RESULT
++ srun --mpi=pmix -N 1 -n 1 /u/wslin2/HW_PA/HW5/CS598_PA_HW5/results/bin/poisson.12459779 -m pcg -N 1024 -t 1e-13
+RESULT method=pcg N=1024 n=1046529 P=1 Px=1 Py=1 nodes=1 Nc=0 n_per_P=1046529.0 iters=3930 time=6.679935e+00 setup=1.489687e-02 t_iter=1.699729e-03 gflops=11.6984 halo=0.000000e+00 reduce=0.000000e+00 cc_comm=0.000000e+00 cc_solve=0.000000e+00 cc_rp=0.000000e+00 relres=9.816e-14 relerr=-1.000e+00 err_exact=6.417257e-08 kappa=4.249712e+05 halo_on=1 reduce_on=1 nrep=1
++ date -Is
+2026-11-15T10:12:47-06:00
