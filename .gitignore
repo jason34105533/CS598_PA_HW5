@@ -1,0 +1,8 @@
+# build products
+poisson
+tests/test_coarse
+src/*.o
+# large solution dumps (regenerable)
+results/*_dumps/
+*.bin
+__pycache__/
