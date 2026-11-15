@@ -62,6 +62,7 @@ void pcg_solve(const Grid *g, double *u, const Opts *o, Stats *s)
     const int nx = g->nx, ny = g->ny;
     const size_t ld = g->ld;
     const double dinv = 1.0 / (4.0 * g->ih2);        /* D = diag(A) = 4/h^2 I */
+    const double ts = MPI_Wtime();
     for (int d = 0; d <= MAXD; ++d) s->kres[d] = s->kerr[d] = -1;
 
     double *x = grid_alloc(g), *r = grid_alloc(g), *z = grid_alloc(g);
@@ -103,6 +104,7 @@ void pcg_solve(const Grid *g, double *u, const Opts *o, Stats *s)
     double relres = sqrt(dots[1]) / rr0, relerr = -1.0;
     if (o->uref) relerr = err_ref(g, x, o);
     record(s, 0, relres, relerr);
+    s->t.setup = MPI_Wtime() - ts;
 
     int k;
     for (k = 1; k <= o->maxit; ++k) {

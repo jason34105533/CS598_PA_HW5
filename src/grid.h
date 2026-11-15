@@ -39,7 +39,8 @@ typedef struct {
     double coarse_comm; /* all-reduce of the coarse residual */
     double coarse_solve;/* redundant coarse solve */
     double coarse_rp;   /* local restriction + prolongation */
-    double total;
+    double setup;       /* solver setup before the iteration loop */
+    double total;       /* iteration loop only (excludes setup) */
 } Timers;
 
 void   grid_init(Grid *g, int N, int Px, int Py, MPI_Comm comm);

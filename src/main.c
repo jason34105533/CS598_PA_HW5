@@ -128,21 +128,23 @@ int main(int argc, char **argv)
         g.halo_on = g.reduce_on = 1;
 
         /* reduce timers: max and mean over ranks */
-        double loc[6] = {s.t.total, s.t.halo, s.t.reduce, s.t.coarse_comm,
-                         s.t.coarse_solve, s.t.coarse_rp};
-        double mx[6], sm[6];
-        MPI_Reduce(loc, mx, 6, MPI_DOUBLE, MPI_MAX, 0, g.comm);
-        MPI_Reduce(loc, sm, 6, MPI_DOUBLE, MPI_SUM, 0, g.comm);
-        MPI_Bcast(mx, 6, MPI_DOUBLE, 0, g.comm);
+        s.t.total -= s.t.setup;                     /* loop time only */
+        double loc[7] = {s.t.total, s.t.halo, s.t.reduce, s.t.coarse_comm,
+                         s.t.coarse_solve, s.t.coarse_rp, s.t.setup};
+        double mx[7], sm[7];
+        MPI_Reduce(loc, mx, 7, MPI_DOUBLE, MPI_MAX, 0, g.comm);
+        MPI_Reduce(loc, sm, 7, MPI_DOUBLE, MPI_SUM, 0, g.comm);
+        MPI_Bcast(mx, 7, MPI_DOUBLE, 0, g.comm);
         if (g.rank == 0) {
-            for (int i = 0; i < 6; ++i) sm[i] /= g.P;
-            printf("REP rep=%d time=%.6e halo=%.6e reduce=%.6e cc_comm=%.6e cc_solve=%.6e "
-                   "cc_rp=%.6e halo_max=%.6e reduce_max=%.6e iters=%d gflops=%.4f\n",
-                   rep, mx[0], sm[1], sm[2], sm[3], sm[4], sm[5], mx[1], mx[2], s.iters,
+            for (int i = 0; i < 7; ++i) sm[i] /= g.P;
+            printf("REP rep=%d time=%.6e setup=%.6e halo=%.6e reduce=%.6e cc_comm=%.6e "
+                   "cc_solve=%.6e cc_rp=%.6e halo_max=%.6e reduce_max=%.6e iters=%d gflops=%.4f\n",
+                   rep, mx[0], mx[6], sm[1], sm[2], sm[3], sm[4], sm[5], mx[1], mx[2], s.iters,
                    s.flops / mx[0] * 1e-9);
             fflush(stdout);
         }
         s.t.total = mx[0];
+        s.t.setup = mx[6];
         s.t.halo = sm[1]; s.t.reduce = sm[2];
         s.t.coarse_comm = sm[3]; s.t.coarse_solve = sm[4]; s.t.coarse_rp = sm[5];
         if (mx[0] < best_t) { best_t = mx[0]; best = s; }
@@ -154,11 +156,11 @@ int main(int argc, char **argv)
             for (int d = 1; d <= MAXD; ++d)
                 printf("CROSS d=%d kres=%d kerr=%d\n", d, best.kres[d], best.kerr[d]);
         printf("RESULT method=%s N=%d n=%.0f P=%d Px=%d Py=%d nodes=%d Nc=%d n_per_P=%.1f "
-               "iters=%d time=%.6e t_iter=%.6e gflops=%.4f halo=%.6e reduce=%.6e "
+               "iters=%d time=%.6e setup=%.6e t_iter=%.6e gflops=%.4f halo=%.6e reduce=%.6e "
                "cc_comm=%.6e cc_solve=%.6e cc_rp=%.6e relres=%.3e relerr=%.3e "
                "err_exact=%.6e kappa=%.6e halo_on=%d reduce_on=%d nrep=%d\n",
                is_jac ? "jacobi" : (o.Nc ? "pcgc" : "pcg"), N, n, g.P, g.Px, g.Py, nodes,
-               o.Nc, n / g.P, best.iters, best.t.total,
+               o.Nc, n / g.P, best.iters, best.t.total, best.t.setup,
                best.iters ? best.t.total / best.iters : 0.0, best.flops / best.t.total * 1e-9,
                best.t.halo, best.t.reduce, best.t.coarse_comm, best.t.coarse_solve,
                best.t.coarse_rp, best.relres, best.relerr, eex, kappa, !nohalo, !noreduce, nrep);
